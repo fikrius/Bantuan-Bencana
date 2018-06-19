@@ -69,35 +69,32 @@
 				<div class="col-md-9">
 					<!-- Card 1 -->
 					<div class="card">
-					  <div class="card-header">	
-					  	<ul class="nav">
-					  		<li class="nav-item">
-					  			<a href="" class="nav-link">
-					  				<img src="<?php echo base_url('assets/img/logo bnpb.png'); ?>" class="img-fluid rounded-circle">
-					  			</a>
-					  		</li>
-					  		<li class="nav-item">
-					  			<p>10 menit yang lalu</p>
-					  		</li>
-					  	</ul>
-					  </div>
-					  <div class="card-body">
-					    <a href=""><h5 class="card-title text-center">Judul Postingan</h5></a>
-					    <img class="img-thumbnail mx-auto d-block mb-4" src="<?php echo base_url('assets/img/merapi.jpg'); ?>">
-					    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-					    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-					    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-					    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-					    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-					    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-					  </div>
-					  <hr>
-					  <div class="balas">
-					  	<button id="btn-balas" class="btn btn-secondary">
-					  		<i class="fa fa-reply"></i>
-					  		Balas
-					  	</button>
-					  </div>
+					  	<div class="card-header">	
+					  		<ul class="nav">
+					  			<li class="nav-item">
+					  				<a href="" class="nav-link">
+					  					<img src="<?php echo base_url('assets/img/logo bnpb.png'); ?>" class="img-fluid rounded-circle">
+					  				</a>
+					  			</li>
+					  			<li class="nav-item">
+					  				<p>10 menit yang lalu</p>
+					  			</li>
+					  		</ul>
+					  	</div>
+					  	<div class="card-body">
+						    <a href=""><h5 class="card-title text-center">Judul Postingan</h5></a>
+						    <img class="img-thumbnail mx-auto d-block mb-4" src="<?php echo base_url('assets/img/merapi.jpg'); ?>">
+						    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+						    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+						    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+						    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+						    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+						    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+					  	</div>
+					  	
+					  	<div id="balas">
+					  		
+					  	</div>
 
 						<div class="form-balas ml-5 mb-3" style="display: none;">
 						  	<form method="post" action="">
@@ -169,13 +166,17 @@
 	<script>
 		
 		$(document).ready(function(){
-
-			balas_komentar();
+			show_balas_komentar();
 			show_auth_menu();
 
-			function balas_komentar(){
-				$('#btn-balas').click(function(){
-					$('.form-balas').toggle();
+			function show_balas_komentar(){
+				$.get("<?php echo site_url('user/show_balas_komentar'); ?>", function(data){
+					var sukses = $("#balas").html(data);
+					if(sukses){
+						$('#btn-balas').click(function(){
+							$('.form-balas').toggle();
+						});
+					}
 				});
 			}
 
@@ -186,7 +187,9 @@
 			}
 
 			function show_link_login(){
-				
+				$.get("<?php echo site_url('user/show_link_login'); ?>", function(data){
+					$(".sign-in").html(data);
+				});
 			}
 		});
 

@@ -67,4 +67,18 @@ class User extends CI_Controller {
 		}
 	}
 
+	//tampil balas komentar di view post
+	public function show_balas_komentar(){
+		//cek session login sudah ada apa belum
+		if(isset($_SESSION['logged_in'])){
+			echo '
+				<hr>
+				<button id="btn-balas" class="btn btn-secondary" style="margin-bottom: 1rem;">
+		  			<i class="fa fa-reply"></i>
+		  			Balas
+		  		</button>
+			';
+		}
+	}
+
 }
