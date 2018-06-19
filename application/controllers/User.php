@@ -57,4 +57,14 @@ class User extends CI_Controller {
 
 	}
 
+	//menu login di halaman post paling bawah
+	public function show_link_login(){
+		//cek session login sudah ada apa belum
+		if(!isset($_SESSION['logged_in'])){
+			echo '
+				<a class="sign-in-link" href="<?php echo site_url('."login".'); ?>">Login</a><span> untuk dapat berkomentar</span>
+			';
+		}
+	}
+
 }

@@ -16,7 +16,7 @@
 			</button>
 			<div class="collapse navbar-collapse" id="menu">
 				<!-- Notif -->
-				<ul class="nav navbar-nav mr-auto">
+				<ul class="nav navbar-nav mr-auto" id="notif">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 			       		<sup>
 			       			<span class="badge badge-danger">12</span>
@@ -37,15 +37,11 @@
 			    </ul>
 				<!-- End Notif -->
 
-				<!-- Access Dropdown -->
-				<ul class="navbar-nav ml-auto">
-					<li class="nav-item">
-						<a href="<?php echo site_url('login'); ?>" class="nav-link">Login</a>
-					</li><li class="nav-item">
-						<a href="<?php echo site_url('daftar'); ?>" class="nav-link">Daftar</a>
-					</li>
-				</ul>
-				<!-- End Access Dropdown -->
+				<!-- auth menu -->
+				<div id="auth_menu">
+					
+				</div>
+				<!-- auth menu -->
 
 				<!-- Profile Dropdown -->
 				<ul class="navbar-nav navbar-toggler-right dropdown">
@@ -54,7 +50,7 @@
 				  </a>
 
 				  <div class="dropdown-menu" aria-labelledby="dropdownMenu">
-				  	<p class="dropdown-item dropdown-backdrop">Fikri Ahmadi</p>
+				  	<p class="dropdown-item dropdown-backdrop"><?php echo $this->session->userdata("nama_depan")." ".$this->session->userdata("nama_belakang"); ?></p>
 				  	<hr>
 				  	<a class="dropdown-item" href="<?php echo site_url('author/fikrius'); ?>"><i class="fa fa-user" style="margin-right: 5px;"></i> Profil</a>
 				  	<a class="dropdown-item" href="<?php echo site_url('home'); ?>"><i class="fa fa-home" style="margin-right: 5px;"></i> Beranda</a>
@@ -163,7 +159,7 @@
 					</div>
 
 					<div class="sign-in">
-						<a class="sign-in-link" href="<?php echo site_url('login'); ?>">Login</a><span> untuk dapat berkomentar</span>
+						
 					</div>
 				</div>
 			</div>
@@ -174,10 +170,24 @@
 		
 		$(document).ready(function(){
 
-			$('#btn-balas').click(function(){
-				$('.form-balas').toggle();
-			});
+			balas_komentar();
+			show_auth_menu();
 
+			function balas_komentar(){
+				$('#btn-balas').click(function(){
+					$('.form-balas').toggle();
+				});
+			}
+
+			function show_auth_menu(){
+				$.get("<?php echo site_url('user/show_auth_menu'); ?>", function(data){
+					$("#auth_menu").html(data);
+				});
+			}
+
+			function show_link_login(){
+				
+			}
 		});
 
 	</script>
