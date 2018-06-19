@@ -14,8 +14,6 @@ class User extends CI_Controller {
 	}
 
 	public function index(){
-		
-
 		$this->load->view('User/template/header');
 		$this->load->view('User/pages/index');
 		$this->load->view('User/template/footer');
@@ -31,6 +29,32 @@ class User extends CI_Controller {
 		$this->load->view('User/template/header');
 		$this->load->view('User/pages/bantuan');
 		$this->load->view('User/template/footer');
+	}
+
+	//menu login, register di navbar. kiri dropdown menu
+	public function show_auth_menu(){
+		//cek session login sudah ada apa belum 
+		if(!isset($_SESSION['logged_in'])){
+			echo '
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item">
+						<a href="<?php echo site_url('."login".'); ?>" class="nav-link">Login</a>
+					</li><li class="nav-item">
+						<a href="<?php echo site_url('."daftar".'); ?>" class="nav-link">Daftar</a>
+					</li>
+				</ul>
+			';
+		}
+	}
+
+	//notifikasi di navbar, kanan navnar-brand
+	public function show_notif(){
+
+	}
+
+	//menu dropdown di navbar paling kanan
+	public function show_dropdown_menu(){
+
 	}
 
 }

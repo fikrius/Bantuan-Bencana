@@ -16,7 +16,7 @@
 			</button>
 			<div class="collapse navbar-collapse" id="menu">
 				<!-- Notif -->
-				<ul class="nav navbar-nav mr-auto" id="dropdown-notifikasi">
+				<ul class="nav navbar-nav mr-auto" id="notif">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 			       		<sup>
 			       			<span class="badge badge-danger">12</span>
@@ -38,13 +38,9 @@
 				<!-- End Notif -->
 
 				<!-- Auth menu -->
-				<ul class="navbar-nav ml-auto">
-					<li class="nav-item">
-						<a href="<?php echo site_url("login"); ?>" class="nav-link">Login</a>
-					</li><li class="nav-item">
-						<a href="<?php echo site_url("daftar"); ?>" class="nav-link">Daftar</a>
-					</li>
-				</ul>
+				<div id="auth_menu">
+					
+				</div>
 				<!-- End auth menu -->
 
 				<!-- Profile Dropdown -->
@@ -53,8 +49,8 @@
 				  	<img class="rounded-circle" style="width: 30px;" src="<?php echo base_url('assets/img/sample.jpg'); ?>">
 				  </a>
 
-				  <div class="dropdown-menu" aria-labelledby="dropdownMenu">
-				  	<p class="dropdown-item dropdown-backdrop">Fikri Ahmadi</p>
+				  <div class="dropdown-menu" aria-labelledby="dropdownMenu" id="dropdown_menu">
+				  	<p class="dropdown-item dropdown-backdrop"><?php echo $this->session->userdata("nama_depan")." ".$this->session->userdata("nama_belakang"); ?></p>
 				  	<hr>
 				  	<a class="dropdown-item" href="<?php echo site_url("author/fikrius"); ?>"><i class="fa fa-user" style="margin-right: 5px;"></i> Profil</a>
 				  	<a class="dropdown-item" href="<?php echo site_url("home"); ?>"><i class="fa fa-home" style="margin-right: 5px;"></i> Beranda</a>
@@ -239,3 +235,19 @@
 			</div>
 		</div>
 	</section>
+
+	<script type="text/javascript">
+		
+		$(document).ready(function(){
+
+			show_auth_menu();
+
+			function show_auth_menu(){
+				$.get("<?php echo site_url('user/show_auth_menu'); ?>", function(data){
+					$("#auth_menu").html(data);
+				});
+			}
+
+		});
+
+	</script>

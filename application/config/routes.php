@@ -5,6 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'User';
 
 //User
+$route['user/(:any)'] = 'User/$1';
 $route['home'] = 'User/index';
 $route['bantuan'] = 'User/bantuan';
 $route['berita/(:any)'] = 'User/post';
