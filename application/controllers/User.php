@@ -7,10 +7,9 @@ class User extends CI_Controller {
 		parent::__construct();
 		$this->load->helper('url');
 		$this->load->library('session');
-		//cek sudah login apa belum
-		if(!isset($_SESSION['logged_in'])){
-			redirect('login','refresh');
-		}
+
+		//variabel untuk menampung kode html
+		$output = "";
 	}
 
 	public function index(){
@@ -38,9 +37,9 @@ class User extends CI_Controller {
 			echo '
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item">
-						<a href="<?php echo site_url('."login".'); ?>" class="nav-link">Login</a>
+						<a href='.site_url("login").' class="nav-link">Login</a>
 					</li><li class="nav-item">
-						<a href="<?php echo site_url('."daftar".'); ?>" class="nav-link">Daftar</a>
+						<a href='.site_url("daftar").' class="nav-link">Daftar</a>
 					</li>
 				</ul>
 			';
@@ -62,7 +61,7 @@ class User extends CI_Controller {
 		//cek session login sudah ada apa belum
 		if(!isset($_SESSION['logged_in'])){
 			echo '
-				<a class="sign-in-link" href="<?php echo site_url('."login".'); ?>">Login</a><span> untuk dapat berkomentar</span>
+				<a class="sign-in-link" href='.site_url("login").'>Login</a><span> untuk dapat berkomentar</span>
 			';
 		}
 	}

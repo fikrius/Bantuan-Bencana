@@ -168,6 +168,7 @@
 		$(document).ready(function(){
 			show_balas_komentar();
 			show_auth_menu();
+			show_link_login();
 
 			function show_balas_komentar(){
 				$.get("<?php echo site_url('user/show_balas_komentar'); ?>", function(data){
