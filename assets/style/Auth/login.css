@@ -1,0 +1,62 @@
+body{
+	font-family: Lato, "helvetica Neue", Helvetica,
+	Arial, sans-serif;
+	font-size: 15px;
+	line-height: 1.5;
+	color: #2C3E50;
+}
+
+nav{
+	background-color: #3b5999;
+	color: #fff;
+}
+.navbar-brand img{
+	width: 25px;
+}
+.highlight{
+	color: yellow;
+}
+.navbar-brand{
+	color: #fff;
+}
+.navbar-brand:hover{
+	color: #2C3E50;
+}
+.form-login{
+	height: 20rem;
+	padding: 1rem;
+}
+.card{
+	margin-top: 5rem;
+}
+.card-header{
+	border-color: #ecf0f1;
+}
+.row{
+	min-height: 800px;
+}
+input[type="submit"]{
+	margin-top: 2rem;
+	margin-bottom: 15px;
+	background-color: #3b5999; 
+	color: #fff;
+}
+
+input[type="submit"]:hover{
+	background-color: #2D4372; 
+}
+
+form a .akun{
+	width: 100%;
+	padding-left: 5rem;
+}
+
+li a{
+	color: #fff;
+}
+
+li, a:hover{
+	color: #2C3E50;
+}
+
+

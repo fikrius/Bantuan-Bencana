@@ -1,0 +1,81 @@
+body{
+	font-family: Lato, "helvetica Neue", Helvetica,
+	Arial, sans-serif;
+	font-size: 15px;
+	line-height: 1.5;
+	color: #2C3E50;
+}
+
+nav{
+	background-color: #3b5999;
+	color: #fff;
+}
+nav li a{
+	color: #fff;
+}
+
+nav li, a:hover{
+	color: #2C3E50;
+}
+.navbar-brand img{
+	width: 25px;
+}
+.container-wrap{
+	min-height: 850px;
+}
+.row{
+	margin-top: 1rem;
+}
+.highlight{
+	color: yellow;
+}
+.navbar-brand{
+	color: #fff;
+}
+.navbar-brand:hover{
+	color: #2C3E50;
+}
+.clear{
+	clear: both;
+}
+.title-forum {
+	margin-top: 3rem;
+}
+
+.sidebar-line {
+	margin-top: 2rem;
+}
+
+.search-thread {
+	margin-top: 1rem;
+}
+
+.btn-success {
+	background-color: #3b5999;
+	width: 100%;
+	height: 3rem;
+	color: white;
+	margin-top: 2px;
+	border-color: #fff;
+}
+.btn-success:hover{
+	background-color: #2D4372;
+	border-color: #fff;
+}
+.category {
+	margin-top: 4rem;
+}
+
+.item {
+	background-color: #2C3E50;
+}
+.profile{
+	width: 100%;
+	height: 30px;
+} 
+/* 
+<!-- add margin navbar --> */
+.top-nav {
+	background-color: #18BC9C;
+	color: white;
+}
