@@ -117,12 +117,12 @@
 						  <div class="card-header">	
 						  	<ul class="nav">
 						  		<li class="nav-item">
-						  			<a href="" class="nav-link">
+						  			<a class="nav-link" tabindex="0" class="btn btn-lg btn-danger" role="button" data-toggle="popover" data-trigger="focus" title="Saputro Andi" data-content="Jombor, Sleman">
 						  				<img src="<?php echo base_url('assets/img/sample.jpg'); ?>" class="img-fluid rounded-circle">
 						  			</a>
 						  		</li>
 						  		<li class="nav-item">
-						  			<p>Andi, 10 menit yang lalu</p>
+						  			<p>Kamis, 30 Juli 2018 10:11</p>
 						  		</li>
 						  	</ul>
 						  </div>
@@ -191,6 +191,13 @@
 					$(".sign-in").html(data);
 				});
 			}
+
+			//popover everywhere
+			$(function(){
+			  $('[data-toggle="popover"]').popover()
+			});
+			
+
 		});
 
 	</script>

@@ -150,12 +150,15 @@
 					  <div class="card-header">	
 					  	<ul class="nav">
 					  		<li class="nav-item">
-					  			<a href="" class="nav-link">
+					  			<a class="nav-link" tabindex="0" class="btn btn-lg btn-danger" role="button" data-toggle="popover" data-trigger="focus" title="BPBD DIY" data-content="Jalan Kenari No. 14A, Semaki, Umbulharjo YOGYAKARTA, 55166
+								Telp. (0274)555836
+								Fax. (0274)554206
+								email: BPBD@jogjaprov.go.id">
 					  				<img src="<?php echo base_url('assets/img/logo bnpb.png'); ?>" class="img-fluid rounded-circle">
 					  			</a>
 					  		</li>
 					  		<li class="nav-item">
-					  			<p>10 menit yang lalu</p>
+					  			<p>Rabu, 10 Maret 2018</p>
 					  		</li>
 					  	</ul>
 					  </div>
@@ -248,6 +251,10 @@
 				});
 			}
 
+			//popover everywhere
+			$(function(){
+			  $('[data-toggle="popover"]').popover()
+			});
 		});
 
 	</script>
