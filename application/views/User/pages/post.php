@@ -44,19 +44,8 @@
 				<!-- auth menu -->
 
 				<!-- Profile Dropdown -->
-				<ul class="navbar-nav navbar-toggler-right dropdown">
-				  <a class="navbar-right dropdown-toggle" role="button" href="" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="text-decoration: none; color: #000;" onmouseover="this.style.color='#fff'" onmouseleave="this.style.color='#000'">
-				  	<img class="rounded-circle" style="width: 30px;" src="<?php echo base_url('assets/img/sample.jpg'); ?>">
-				  </a>
-
-				  <div class="dropdown-menu" aria-labelledby="dropdownMenu">
-				  	<p class="dropdown-item dropdown-backdrop"><?php echo $this->session->userdata("nama_depan")." ".$this->session->userdata("nama_belakang"); ?></p>
-				  	<hr>
-				  	<a class="dropdown-item" href="<?php echo site_url('author/fikrius'); ?>"><i class="fa fa-user" style="margin-right: 5px;"></i> Profil</a>
-				  	<a class="dropdown-item" href="<?php echo site_url('home'); ?>"><i class="fa fa-home" style="margin-right: 5px;"></i> Beranda</a>
-				  	<a class="dropdown-item" href="<?php echo site_url('setting'); ?>"><i class="fa fa-cog" style="margin-right: 5px;"></i> Pengaturan</a>
-				  	<a class="dropdown-item" href="<?php echo site_url('logout'); ?>">Keluar</a>
-				  </div>
+				<ul class="navbar-nav navbar-toggler-right dropdown" id="dropdown_menu">
+				 
 				</ul>
 				<!-- End Profile Dropdown -->
 			</div>
@@ -169,6 +158,7 @@
 			show_balas_komentar();
 			show_auth_menu();
 			show_link_login();
+			show_dropdown_menu();
 
 			function show_balas_komentar(){
 				$.get("<?php echo site_url('user/show_balas_komentar'); ?>", function(data){
@@ -190,6 +180,12 @@
 			function show_link_login(){
 				$.get("<?php echo site_url('user/show_link_login'); ?>", function(data){
 					$(".sign-in").html(data);
+				});
+			}
+
+			function show_dropdown_menu(){
+				$.get("<?php echo site_url('user/show_dropdown_menu'); ?>", function(data){
+					$("#dropdown_menu").html(data);
 				});
 			}
 
