@@ -74,6 +74,7 @@ class Auth extends CI_Controller {
 						);
 
 						$this->session->set_userdata($data_session);
+						
 						redirect(site_url('home'),'refresh');
 					}else{
 						$this->session->set_flashdata('login gagal', '1');
@@ -167,7 +168,7 @@ class Auth extends CI_Controller {
 	}
 
 	//daftar untuk masyarakat
-	//versi 1 : without ajax
+	//versi 2, (AJAX, still failed)
 	public function auth_daftar2(){
 		$username = $this->input->post('username');
 		$email = $this->input->post('email');
@@ -230,7 +231,7 @@ class Auth extends CI_Controller {
         echo json_encode($output);
 	}
 
-	//insert data ke database user
+	//insert data ke database user (AJAX, still failed)
 	public function insert_users(){
 		$username = htmlspecialchars($this->input->post('username'));
 		$email = htmlspecialchars($this->input->post('email'));
@@ -258,10 +259,17 @@ class Auth extends CI_Controller {
 		echo json_encode($data);
 	}
 
+	//go back to the previous page (for example : from post click sign in button)
+	//this will be redirect to post, not to home
+	public function go_back(){
+		header("Location: {$_SERVER['HTTP_REFERER']}");
+		exit;
+	}
+
 	//logout
 	public function logout(){
 		$this->session->sess_destroy();
-		redirect('login','refresh');
+		redirect('home','refresh');
 	}
 
 }
