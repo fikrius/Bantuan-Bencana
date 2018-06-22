@@ -57,14 +57,14 @@
 			<div class="row">
 				<div class="col-md-3">
 					<div class="input-group mb-3 search-thread">
-					  <form method="" action="" id="form-cari-berita" style="width: 100%;">
-					  	<div class="form-group">
-					  		<input class="form-control text-center" type="search" name="cari-berita" id="cari-berita" placeholder="Cari Berita">
-					  	</div>
-					  </form>
+					  	<form method="" action="" id="form-cari-berita" style="width: 100%;">
+					  		<div class="form-group">
+					  			<input class="form-control text-center" type="search" name="cari-berita" id="cari-berita" placeholder="Cari Berita">
+					  		</div>
+					  	</form>
 					</div>
-					<div class="input-group mb-3 sm-12">
-						<a class="btn btn-success" name="btn-bantuan" id="btn-bantuan" href="<?php echo site_url('bantuan'); ?>">Minta Bantuan</a>
+					<div class="input-group mb-3 sm-12 tombol-bantuan">
+						
 					</div>
 					<div class="sidebar-line">
 						<hr>
@@ -234,6 +234,13 @@
 
 			show_auth_menu();
 			show_dropdown_menu();
+			show_tombol_bantuan();
+
+			function show_tombol_bantuan(){
+				$.get("<?php echo site_url('user/show_tombol_bantuan'); ?>", function(data){
+					$(".tombol-bantuan").html(data);
+				});
+			}
 
 			function show_auth_menu(){
 				$.get("<?php echo site_url('user/show_auth_menu'); ?>", function(data){

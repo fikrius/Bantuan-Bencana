@@ -51,6 +51,16 @@ class User extends CI_Controller {
 
 	}
 
+	//button minta bantuan
+	public function show_tombol_bantuan(){
+		//cek session sudah ada apa belum
+		if(isset($_SESSION['logged_in'])){
+			echo '
+				<a class="btn btn-success" name="btn-bantuan" id="btn-bantuan" href='.site_url('bantuan').'>Minta Bantuan</a>
+			';
+		}
+	}
+
 	//menu dropdown di navbar paling kanan
 	public function show_dropdown_menu(){
 		//cek session login sudah ada apa belum
