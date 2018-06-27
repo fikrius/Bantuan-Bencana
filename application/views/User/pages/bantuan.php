@@ -16,7 +16,7 @@
 			</button>
 			<div class="collapse navbar-collapse" id="menu">
 				<!-- Notif -->
-				<ul class="nav navbar-nav mr-auto">
+				<ul class="nav navbar-nav mr-auto" id="notif">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 			       		<sup>
 			       			<span class="badge badge-danger">12</span>
@@ -37,30 +37,15 @@
 			    </ul>
 				<!-- End Notif -->
 
-				<!-- Auth Dropdown -->
-				<ul class="navbar-nav ml-auto">
-					<li class="nav-item">
-						<a href="<?php echo site_url('login'); ?>" class="nav-link">Login</a>
-					</li><li class="nav-item">
-						<a href="<?php echo site_url('daftar'); ?>" class="nav-link">Daftar</a>
-					</li>
-				</ul>
-				<!-- End auth Dropdown -->
+				<!-- Auth menu -->
+				<div id="auth_menu">
+					
+				</div>
+				<!-- End auth menu -->
 
 				<!-- Profile Dropdown -->
-				<ul class="navbar-nav navbar-toggler-right dropdown">
-				  <a class="navbar-right dropdown-toggle" role="button" href="" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="text-decoration: none; color: #000;" onmouseover="this.style.color='#fff'" onmouseleave="this.style.color='#000'">
-				  	<img class="rounded-circle" style="width: 30px;" src="<?php echo base_url('assets/img/sample.jpg'); ?>">
-				  </a>
-
-				  <div class="dropdown-menu" aria-labelledby="dropdownMenu">
-				  	<p class="dropdown-item dropdown-backdrop">Fikri Ahmadi</p>
-				  	<hr>
-				  	<a class="dropdown-item" href="<?php echo site_url('author/fikrius'); ?>"><i class="fa fa-user" style="margin-right: 5px;"></i> Profil</a>
-				  	<a class="dropdown-item" href="<?php echo site_url('home'); ?>"><i class="fa fa-home" style="margin-right: 5px;"></i> Beranda</a>
-				  	<a class="dropdown-item" href="<?php echo site_url('setting'); ?>"><i class="fa fa-cog" style="margin-right: 5px;"></i> Pengaturan</a>
-				  	<a class="dropdown-item" href="<?php echo site_url('logout'); ?>">Keluar</a>
-				  </div>
+				<ul class="navbar-nav navbar-toggler-right dropdown" id="dropdown_menu">
+				  
 				</ul>
 				<!-- End Profile Dropdown -->
 			</div>
@@ -138,3 +123,33 @@
 			</div>
 		</div>
 	</section>
+
+	<script type="text/javascript">
+		
+		$(document).ready(function(){
+
+			show_auth_menu();
+			show_dropdown_menu();
+			show_tombol_bantuan();
+
+			function show_tombol_bantuan(){
+				$.get("<?php echo site_url('user/show_tombol_bantuan'); ?>", function(data){
+					$(".tombol-bantuan").html(data);
+				});
+			}
+
+			function show_auth_menu(){
+				$.get("<?php echo site_url('user/show_auth_menu'); ?>", function(data){
+					$("#auth_menu").html(data);
+				});
+			}
+
+			function show_dropdown_menu(){
+				$.get("<?php echo site_url('user/show_dropdown_menu'); ?>", function(data){
+					$("#dropdown_menu").html(data);
+				});
+			}
+			
+		});
+
+	</script>

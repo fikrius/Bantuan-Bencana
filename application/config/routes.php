@@ -16,5 +16,8 @@ $route['daftar'] = 'Auth/daftar';
 $route['logout'] = 'Auth/logout';
 $route['auth/(:any)'] = 'Auth/$1';
 
+//admin daerah
+$route['admin-daerah/home'] = 'Admin_pusat';
+
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
