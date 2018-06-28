@@ -14,6 +14,7 @@ class User extends CI_Controller {
 
 	public function index(){
 		$data['artikel'] = $this->user_model->get_artikel();
+		$data['jumlah_artikel'] = $this->user_model->get_jumlah_artikel();
 
 		$this->load->view('User/template/header');
 		$this->load->view('User/pages/index', $data);

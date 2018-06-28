@@ -84,23 +84,39 @@
 					<!-- Baris slideshow berita terpopuler dan space iklan -->
 					<div class="row">
 						<!-- Slideshow berita terpopuler -->
-						<div class="col-md-12" style="display: none;">
+						<div class="col-md-12">
 							<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
 							 	<ol class="carousel-indicators">
-							    	<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-							    	<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-							    	<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+							 		<?php  
+							 			$status = "active";
+							 		?>
+							 		<?php for($i=0; $i<$jumlah_artikel; $i++){ ?>
+							 			<li data-target="#carouselExampleIndicators" data-slide-to="<?php echo $i; ?>" class="<?php echo $status; ?>"></li>
+							 			<?php $status = ""; ?>
+							 		<?php } ?>
+						
+							    	
 							  	</ol>
 
 							  	<div class="carousel-inner">
-							    	<div class="carousel-item active">
-							      		<img class="d-block w-100" src="<?php echo base_url('assets/img/merapi.jpg'); ?>" alt="First slide">
-							      		<div class="carousel-caption d-none d-md-block">
-											<a href="#" style="color: inherit;"><h5>Status Gunung Merapi</h5></a>
-										    <p style="text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-										    tempor incididunt ut labore et dolore magna aliqua. Ut</p>
-										</div>
-							    	</div>
+							  		<?php  
+							  			$status = "active";
+							  		?>
+							  		<?php foreach($artikel->result() as $row){ ?>
+							  			<?php  
+							  				$string = $row->isi;
+											$string = substr($string, 0, 100);
+							  			?>
+							  			<div class="carousel-item <?php echo $status; ?>">
+								      		<img class="d-block w-100" src="<?php echo base_url('assets/img/merapi.jpg'); ?>" alt="First slide">
+								      		<div class="carousel-caption d-none d-md-block">
+												<a href="#" style="color: inherit;"><h5><?php echo $row->judul; ?></h5></a>
+											    <p style="text-align: justify;"><?php echo $string." . . ."; ?></p>
+											</div>
+								    	</div>
+								    	<?php $status = ""; ?>
+							  		<?php } ?>
+							    	
 							  	</div>
 
 							  	<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">

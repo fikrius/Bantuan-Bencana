@@ -8,6 +8,10 @@ class Admin_pusat extends CI_Controller {
 		$this->load->helper(array('form', 'url'));
 		$this->load->library('session');
 		$this->load->model('admin_model');
+
+		if(!isset($_SESSION['logged_in_admin_pusat'])){
+			redirect('login','refresh');
+		}
 	}
 
 	public function index(){
@@ -30,50 +34,17 @@ class Admin_pusat extends CI_Controller {
 		$this->load->view('Admin Pusat/template/footer');
 	}
 
+	public function tulis_artikel(){
+		$this->load->view('Admin Pusat/template/header');
+		$this->load->view('Admin Pusat/pages/tulis_artikel');
+		$this->load->view('Admin Pusat/template/footer');
+	}
+
 	public function video_sosialisasi(){
 		$this->load->view('Admin Pusat/template/header');
 		$this->load->view('Admin Pusat/pages/video_sosialisasi');
 		$this->load->view('Admin Pusat/template/footer');
 	}
-
-	// public function do_upload(){
-	// 	$judul = htmlspecialchars($this->input->post('judul'));
-	// 	$isi = htmlspecialchars($this->input->post('isi'));
-	// 	$tanggal_posting = htmlspecialchars($this->input->post('tanggal_posting'));
-
-	// 	$nama_baru = uniqid().$_FILES['foto']['name'];
-
-	// 	$config['file_name'] 			= $nama_baru;
-	// 	$config['upload_path']          = '../assets/img/postingan/';
- //        $config['allowed_types']        = 'gif|jpg|png';
- //        $config['max_size']             = 3000;
-
- //        $this->load->library('upload', $config);
-
- //        if($this->load->library('upload', $config)){
-           
- //        	$data_artikel = array(
- //            	'judul' => $judul,
- //            	'isi' => $isi, 
- //            	'tanggal_posting' => $tanggal_posting,
- //            	'nama_foto' => $config['file_name']
- //            );
-
- //        	$upload_artikel = $this->admin_model->upload_artikel($data_artikel);
- //        	if($upload_artikel > 0){
- //        		$this->session->set_flashdata('2', '2');
- //        		redirect('admin-pusat/artikel','refresh');
- //        	}else{
- //        		$this->session->set_flashdata('3', '3');
- //        		redirect('admin-pusat/artikel','refresh');
- //        	}
-            
- //        }else{
- //            $this->session->set_flashdata('1', '1');
- //            redirect('admin-pusat/artikel','refresh');
- //        }
-
-	// }
 
 	public function do_upload(){
 
@@ -84,7 +55,7 @@ class Admin_pusat extends CI_Controller {
 				echo "<script>
 					alert('Gambar gagal diupload');
 				</script>";
-				redirect('admin-pusat/artikel','refresh');
+				redirect('admin-pusat/tulis_artikel','refresh');
 				return false;
 			}
 
@@ -104,7 +75,7 @@ class Admin_pusat extends CI_Controller {
 			if($upload === 0){
 				echo "<script>
 					alert('Data gagal diupload');
-					document.location.href = 'admin-pusat/artikel';
+					document.location.href = 'admin-pusat/tulis_artikel';
 				</script>";
 				return false;
 				
@@ -164,6 +135,5 @@ class Admin_pusat extends CI_Controller {
 		return $namaFileBaru;
 
 	}
-
 	
 }

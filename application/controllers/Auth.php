@@ -53,7 +53,22 @@ class Auth extends CI_Controller {
 
 			if($hc_username > 0){
 				if($level === "0"){
+					$data_session = array(
+						'id_users' => $results['id_users'],
+						'level' => $results['level'],
+						'email' => $results['email'],
+						'username' => $results['username'],
+						'nama_depan' => $results['nama_depan'],
+						'nama_belakang' => $results['nama_belakang'],
+						'password' => $results['password'],
+						'tanggal_lahir' => $results['tanggal_lahir'],
+						'aktivitas_terakhir' => $results['aktivitas_terakhir'],
+						'foto' => $results['foto'],
+						'logged_in_admin_pusat' => TRUE
+					);
 
+					$this->session->set_userdata($data_session);
+					redirect(site_url('admin-pusat/home'),'refresh');
 				}else if($level === "1"){
 
 				}else if($level === "2"){

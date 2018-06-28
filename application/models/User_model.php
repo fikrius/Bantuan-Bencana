@@ -8,11 +8,18 @@ class User_model extends CI_Model{
 	}
 
 	public function get_artikel(){
-		return $this->db->get('artikel'); 
+		return $this->db->query('SELECT * FROM artikel ORDER BY id_artikel DESC'); 
 	}
 
+	public function get_jumlah_artikel(){
+		$query = $this->db->get("artikel");
+		return $query->num_rows();
+	} 
+
 	public function show_post($where){
-		return $this->db->get_where("artikel", $where);
+		$this->db->get_where("artikel", $where);
+		$this->db->order_by("id_artikel", "DESC");
+		return $this->db->get();
 	}
 
 }

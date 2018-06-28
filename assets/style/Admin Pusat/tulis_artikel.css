@@ -47,6 +47,9 @@ nav li, a:hover{
 	background-color: #2D4372;
 	border-color: #fff;
 }
+.container-wrap{
+	min-height: 650px;
+}
 /* 
 <!-- add margin navbar --> */
 .top-nav {
