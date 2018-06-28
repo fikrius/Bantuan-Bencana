@@ -84,7 +84,7 @@
 					<!-- Baris slideshow berita terpopuler dan space iklan -->
 					<div class="row">
 						<!-- Slideshow berita terpopuler -->
-						<div class="col-md-12">
+						<div class="col-md-12" style="display: none;">
 							<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
 							 	<ol class="carousel-indicators">
 							    	<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -95,24 +95,6 @@
 							  	<div class="carousel-inner">
 							    	<div class="carousel-item active">
 							      		<img class="d-block w-100" src="<?php echo base_url('assets/img/merapi.jpg'); ?>" alt="First slide">
-							      		<div class="carousel-caption d-none d-md-block">
-											<a href="#" style="color: inherit;"><h5>Status Gunung Merapi</h5></a>
-										    <p style="text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-										    tempor incididunt ut labore et dolore magna aliqua. Ut</p>
-										</div>
-							    	</div>
-
-							    	<div class="carousel-item">
-							      		<img class="d-block w-100" src="<?php echo base_url('assets/img/merapi.jpg'); ?>" alt="Second slide">
-							      		<div class="carousel-caption d-none d-md-block">
-											<a href="#" style="color: inherit;"><h5>Status Gunung Merapi</h5></a>
-										    <p style="text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-										    tempor incididunt ut labore et dolore magna aliqua. Ut</p>
-										</div>
-							    	</div>
-
-							    	<div class="carousel-item">
-							      		<img class="d-block w-100" src="<?php echo base_url('assets/img/merapi.jpg'); ?>" alt="Third slide">
 							      		<div class="carousel-caption d-none d-md-block">
 											<a href="#" style="color: inherit;"><h5>Status Gunung Merapi</h5></a>
 										    <p style="text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
@@ -135,67 +117,34 @@
 					</div>
 
 					<!-- Card 1 -->
-					<div class="card">
-					  <div class="card-header">	
-					  	<ul class="nav">
-					  		<li class="nav-item">
-					  			<a class="nav-link" tabindex="0" class="btn btn-lg btn-danger" role="button" data-toggle="popover" data-trigger="focus" title="BPBD DIY" data-content="Jalan Kenari No. 14A, Semaki, Umbulharjo YOGYAKARTA, 55166
-								Telp. (0274)555836
-								Fax. (0274)554206
-								email: BPBD@jogjaprov.go.id">
-					  				<img src="<?php echo base_url('assets/img/logo bnpb.png'); ?>" class="img-fluid rounded-circle">
-					  			</a>
-					  		</li>
-					  		<li class="nav-item">
-					  			<p>Rabu, 10 Maret 2018</p>
-					  		</li>
-					  	</ul>
-					  </div>
-					  <div class="card-body">
-					    <a href="<?php echo site_url('berita/judul-berita'); ?>"><h5 class="card-title">Judul Postingan</h5></a>
-					    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sedUt enim ad minim...</p>
-					  </div>
-					</div>
-
-					<!-- Card 2 -->
-					<div class="card">
-					  <div class="card-header">	
-					  	<ul class="nav">
-					  		<li class="nav-item">
-					  			<a href="" class="nav-link">
-					  				<img src="<?php echo base_url('assets/img/logo bnpb.png'); ?>" class="img-fluid rounded-circle">
-					  			</a>
-					  		</li>
-					  		<li class="nav-item">
-					  			<p>15 menit yang lalu</p>
-					  		</li>
-					  	</ul>
-					  </div>
-					  <div class="card-body">
-					    <a href=""><h5 class="card-title">Judul Postingan 2</h5></a>
-					    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sedUt enim ad minim...</p>
-					  </div>
-					</div>
-
-					<!-- Card 2 -->
-					<div class="card">
-					  <div class="card-header">	
-					  	<ul class="nav">
-					  		<li class="nav-item">
-					  			<a href="" class="nav-link">
-					  				<img src="<?php echo base_url('assets/img/logo bnpb.png'); ?>" class="img-fluid rounded-circle">
-					  			</a>
-					  		</li>
-					  		<li class="nav-item">
-					  			<p>3 hari yang lalu</p>
-					  		</li>
-					  	</ul>
-					  </div>
-					  <div class="card-body">
-					    <a href=""><h5 class="card-title">Judul Postingan 3</h5></a>
-					    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sedUt enim ad minim...</p>
-					  </div>
-					</div>
+					<?php foreach($artikel->result() as $row){ ?>
+						<?php 
+							$string = $row->isi;
+							$string = substr($string, 0, 100);
+							
+						?>
+						<div class="card">
+						  <div class="card-header">	
+						  	<ul class="nav">
+						  		<li class="nav-item">
+						  			<a class="nav-link" tabindex="0" class="btn btn-lg btn-danger" role="button" data-toggle="popover" data-trigger="focus" title="BPBD DIY" data-content="Jalan Kenari No. 14A, Semaki, Umbulharjo YOGYAKARTA, 55166
+									Telp. (0274)555836
+									Fax. (0274)554206
+									email: BPBD@jogjaprov.go.id">
+						  				<img src="<?php echo base_url('assets/img/logo bnpb.png'); ?>" class="img-fluid rounded-circle">
+						  			</a>
+						  		</li>
+						  		<li class="nav-item">
+						  			<p><?php echo $row->tanggal_posting; ?></p>
+						  		</li>
+						  	</ul>
+						  </div>
+						  <div class="card-body">
+						    <a href="<?php echo site_url('berita/'.$row->id_artikel); ?>"><h5 class="card-title"><?php echo $row->judul; ?></h5></a>
+						    <p class="card-text"><?php echo $string."..."; ?></p>
+						  </div>
+						</div>
+					<?php } ?>
 				</div>
 
 				<div class="col-md-3 iklan" style="margin-top: 1rem;">
@@ -208,18 +157,6 @@
 					<div class="iklan-dua" style="margin-top: 1rem;">
 						<a href="#">
 							<img style="width: 100%;" src="<?php echo base_url('assets/img/iklan/minion.gif'); ?>">
-						</a>
-					</div>
-					<hr>
-					<div class="iklan-dua" style="margin-top: 1rem;">
-						<a href="#">
-							<img style="width: 100%;" src="<?php echo base_url('assets/img/iklan/madya.jpg'); ?>">
-						</a>
-					</div>
-					<hr>
-					<div class="iklan-tiga" style="margin-top: 1rem;">
-						<a href="#">
-							<img style="width: 100%;" src="<?php echo base_url('assets/img/iklan/tangguh award.jpg'); ?>">
 						</a>
 					</div>
 				</div>

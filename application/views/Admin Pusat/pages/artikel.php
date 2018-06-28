@@ -1,6 +1,6 @@
-	<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/style/Auth/login.css'); ?>">
+	<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/style/Admin Pusat/artikel.css'); ?>">
 	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
-	<title>Admin Pusat | Dasbor</title>
+	<title>Admin Pusat | Artikel</title>
 </head>
 <body>
 
@@ -77,9 +77,79 @@
 		</div>
 	</nav>
 
-	<div class="container">
-		
+	<div class="container-wrap">
+		<div class="container" style="margin-top: 5rem;">
+			<div class="row">
+				<div class="col-md-8 offset-md-2">
+					<h2 class="text-center">Tulis Artikel</h2>
+					<form method="post" action="<?php echo site_url('admin-pusat/do_upload'); ?>" enctype="multipart/form-data">
+						<div class="form-group">
+							<label for="judul">Judul :</label>
+							<input type="text" class="form-control" name="judul" id="judul" required>
+						</div>
+						<div class="form-group">
+							<label for="isi">Isi :</label>
+							<textarea name="isi" id="isi" class="form-control" required></textarea>
+						</div>
+						<div class="form-group">
+							<label for="foto">Upload Foto :</label>
+							<input type="file" class="form-control" name="foto" id="foto">
+						</div>
+						<?php date_default_timezone_set("Asia/Jakarta"); ?>
+						<input type="text" name="tanggal_posting" value="<?php echo date('Y-m-d').' '.date('H:i:s'); ?>" hidden>
+						<input type="submit" name="submit" class="btn btn-success" id="submit" value="Unggah Artikel">
+					</form>
+					<div class="notifikasi" style="margin-top: 1rem;">
+		              <?php if($this->session->flashdata("sukses") === "sukses"){ ?>
+		                <div class="alert alert-success" role="alert">
+		                  Unggah artikel berhasil
+		                </div>
+		              <?php } ?>
+		            </div>
+				</div>
+			</div>
+		</div>
 	</div>
+
+	<div class="daftar-artikel">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-10 offset-1">
+					<h2 class="text-center">Daftar Artikel</h2>
+					<table class="table table-hover" id="list_artikel">
+						<thead class="text-center">
+							<th>No</th>
+							<th>Judul</th>
+							<th>Aksi</th>
+						</thead>
+
+						<tbody>
+							<?php $no = 1; ?>
+							<?php foreach($list_artikel->result() as $row){ ?>
+								<tr>
+									<td><?php echo $no; ?></td>
+									<td><?php echo $row->judul; ?></td>
+									<td class="text-center">
+										<a class="btn btn-danger" href="">Hapus</a> | 
+										<a class="btn btn-primary" href="">Ubah</a>
+									</td>
+								</tr>
+								<?php $no++; ?>
+							<?php } ?>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		
+		$(document).ready( function () {
+		    $('#list_artikel').DataTable();
+		});
+
+	</script>
 
 	
 	

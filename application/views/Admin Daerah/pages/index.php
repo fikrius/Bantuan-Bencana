@@ -14,13 +14,39 @@
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="menu">
-				<ul class="navbar-nav ml-auto">
-					<li class="nav-item">
-						<a href="<?php echo site_url('login'); ?>" class="nav-link">Login</a>
-					</li><li class="nav-item">
-						<a href="<?php echo site_url('daftar'); ?>" class="nav-link">Daftar</a>
-					</li>
+				<!-- Notif -->
+				<ul class="nav navbar-nav mr-auto" id="notif">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+			       		<sup>
+			       			<span class="badge badge-danger">12</span>
+			       		</sup>
+		       			<span>
+		       				<i style="color: #fff;" class="fa fa-envelope"></i>
+		       			</span>
+			       	</a>
+			      	<li class="dropdown">
+			      		<div class="dropdown-menu">
+							<a class="dropdown-item" href="#">
+								<strong>Bantuan Diterima</strong><br />
+							    <small><em>Bantuan sedang dikirim ke lokasi</em></small>
+							</a>
+						    <div class="dropdown-divider"></div>
+						</div>
+			      	</li>
+			    </ul>
+				<!-- End Notif -->
+
+				<!-- Auth menu -->
+				<div id="auth_menu">
+					
+				</div>
+				<!-- End auth menu -->
+
+				<!-- Profile Dropdown -->
+				<ul class="navbar-nav navbar-toggler-right dropdown" id="dropdown_menu">
+				  
 				</ul>
+				<!-- End Profile Dropdown -->
 			</div>
 		</div>
 	</nav>

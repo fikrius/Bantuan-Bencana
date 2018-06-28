@@ -7,20 +7,28 @@ class User extends CI_Controller {
 		parent::__construct();
 		$this->load->helper('url');
 		$this->load->library('session');
-
+		$this->load->model('user_model');
 		//variabel untuk menampung kode html
 		$output = "";
 	}
 
 	public function index(){
+		$data['artikel'] = $this->user_model->get_artikel();
+
 		$this->load->view('User/template/header');
-		$this->load->view('User/pages/index');
+		$this->load->view('User/pages/index', $data);
 		$this->load->view('User/template/footer');
 	}
 
 	public function post(){
+		$id_artikel = $this->uri->segment(2);
+		$where = array(
+			'id_artikel' => $id_artikel
+		);
+		$data['postingan'] = $this->user_model->show_post($where);
+
 		$this->load->view('User/template/header');
-		$this->load->view('User/pages/post');
+		$this->load->view('User/pages/post', $data);
 		$this->load->view('User/template/footer');
 	}
 

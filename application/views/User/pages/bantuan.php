@@ -82,14 +82,25 @@
 				</div>
 
 				<div class="col-md-6 main-content">
-					<h2>Formulir Pengajuan Bantuan</h2>
+					<h2>Pengajuan Bantuan Penanganan Medis</h2>
 					<form method="" action="" id="form-bantuan">
 					   	<label for="jenis_bencana">Jenis Bencana</label>
-						<select class="custom-select mb-4" id="jenis_bencana">
-							<option value="gempa bumi">Gempa Bumi</option>
-							<option value="tanah longsor">Tanah Longsor</option>
-							<option id="lainnya">Lainnya...</option>
+						<select class="custom-select mb-4" id="pertanyaan">
+							<option id="1" value="">Sakit Kepala</option>
+							<option id="2" value="">Luka-luka</option>
 						</select>
+						<label for="jenis_bencana">Sakit di bagian mana?</label>
+						<select class="custom-select mb-4" id="pertanyaan">
+							<option id="1" value="">Depan</option>
+							<option id="2" value="">Belakang</option>
+							<option id="2" value="">Atas</option>
+						</select>
+						<label for="jenis_bencana">Apakah Anda pusing?</label>
+						<select class="custom-select mb-4" id="pertanyaan">
+							<option id="1" value="">Ya</option>
+							<option id="2" value="">Tidak</option>
+						</select>
+
 						<input type="submit" name="kirim" id="kirim" value="Kirim" class="btn btn-success">
 					</form>
 				</div>
@@ -107,17 +118,6 @@
 						</a>
 					</div>
 					<hr>
-					<div class="iklan-dua" style="margin-top: 1rem;">
-						<a href="#">
-							<img style="width: 100%;" src="<?php echo base_url('assets/img/iklan/madya.jpg'); ?>">
-						</a>
-					</div>
-					<hr>
-					<div class="iklan-tiga" style="margin-top: 1rem;">
-						<a href="#">
-							<img style="width: 100%;" src="<?php echo base_url('assets/img/iklan/tangguh award.jpg'); ?>">
-						</a>
-					</div>
 				</div>
 
 			</div>
@@ -149,7 +149,21 @@
 					$("#dropdown_menu").html(data);
 				});
 			}
+
+			//pertanyaan
+			$('#penyakit').click(function(e){
+				e.preventDefault();
+				$.get("<?php echo site_url('bantuan/show_sakit_kepala'); ?>", function(data){
+					$(".muncul").html(data);
+				});
+			});
 			
+			function show_sakit_kepala(){
+				$.get("<?php echo site_url('bantuan/show_sakit_kepala'); ?>", function(data){
+					$(".pertanyaan").html(data);
+				});
+			}
+
 		});
 
 	</script>

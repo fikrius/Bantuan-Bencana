@@ -1,6 +1,6 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/style/Auth/login.css'); ?>">
 	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
-	<title>Admin Pusat | Dasbor</title>
+	<title>Admin Pusat | Permintaan Bantuan</title>
 </head>
 <body>
 

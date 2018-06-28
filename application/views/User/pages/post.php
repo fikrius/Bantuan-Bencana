@@ -56,49 +56,47 @@
 		<div class="container">	
 			<div class="row">
 				<div class="col-md-9">
-					<!-- Card 1 -->
-					<div class="card">
-					  	<div class="card-header">	
-					  		<ul class="nav">
-					  			<li class="nav-item">
-					  				<a href="" class="nav-link">
-					  					<img src="<?php echo base_url('assets/img/logo bnpb.png'); ?>" class="img-fluid rounded-circle">
-					  				</a>
-					  			</li>
-					  			<li class="nav-item">
-					  				<p>10 menit yang lalu</p>
-					  			</li>
-					  		</ul>
-					  	</div>
-					  	<div class="card-body">
-						    <a href=""><h5 class="card-title text-center">Judul Postingan</h5></a>
-						    <img class="img-thumbnail mx-auto d-block mb-4" src="<?php echo base_url('assets/img/merapi.jpg'); ?>">
-						    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-						    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-						    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-						    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-						    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-						    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-					  	</div>
-					  	
-					  	<div id="balas">
-					  		
-					  	</div>
+					<?php foreach($postingan->result() as $row){ ?>
+						<!-- Card 1 -->
+						<div class="card">
+						  	<div class="card-header">	
+						  		<ul class="nav">
+						  			<li class="nav-item">
+						  				<a href="" class="nav-link">
+						  					<img src="<?php echo base_url('assets/img/logo bnpb.png'); ?>" class="img-fluid rounded-circle">
+						  				</a>
+						  			</li>
+						  			<li class="nav-item">
+						  				<p><?php echo $row->tanggal_posting; ?></p>
+						  			</li>
+						  		</ul>
+						  	</div>
+						  	<div class="card-body">
+							    <a href=""><h5 class="card-title text-center"><?php echo $row->judul; ?></h5></a>
+							    <img class="img-thumbnail mx-auto d-block mb-4" src="<?php echo base_url('assets/img/postingan/'.$row->nama_foto); ?>">
+							    <p class="card-text"><?php echo $row->isi; ?></p>
+						  	</div>
+						  	
+						  	<div id="balas">
+						  		
+						  	</div>
 
-						<div class="form-balas ml-5 mb-3" style="display: none;">
-						  	<form method="post" action="">
-						  		<div class="form-group">
-						  			<label for="nama">Nama :</label>
-						  			<input class="form-control" type="text" name="nama" id="nama">
-						  		</div>
-						  		<div class="form-group">
-						  			<label for="komentar">Komentar :</label>
-						  			<textarea class="form-control" id="komentar" name="komentar"></textarea>
-						  		</div>
-						  		<input class="btn btn-success" type="submit" name="submit" value="Kirim Komentar">
-						  	</form>
+							<div class="form-balas ml-5 mb-3" style="display: none;">
+							  	<form method="post" action="">
+							  		<div class="form-group" hidden>
+							  			<label for="id_artikel">id artikel :</label>
+							  			<input class="form-control" type="text" name="id_artikel" id="id_artikel" value="<?php echo $row->id_artikel ?>">
+							  		</div>
+							  		<div class="form-group">
+							  			<label for="komentar">Komentar :</label>
+							  			<textarea class="form-control" id="komentar" name="komentar"></textarea>
+							  		</div>
+							  		<input class="btn btn-success" type="submit" name="submit" value="Kirim Komentar">
+							  	</form>
+							</div>
 						</div>
-					</div>
+					<?php } ?>
+					
 
 					<div class="reply">
 						<!-- Reply Card 1 -->
