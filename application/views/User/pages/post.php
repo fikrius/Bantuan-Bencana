@@ -82,63 +82,70 @@
 						  	</div>
 
 							<div class="form-balas ml-5 mb-3" style="display: none;">
-							  	<form method="post" action="">
+							  	<form id="form-komentar">
 							  		<div class="form-group" hidden>
 							  			<label for="id_artikel">id artikel :</label>
 							  			<input class="form-control" type="text" name="id_artikel" id="id_artikel" value="<?php echo $row->id_artikel ?>">
 							  		</div>
+							  		<div class="form-group" hidden>
+							  			<label for="id_users">id users :</label>
+							  			<input type="text" name="id_users" id="id_users" value="<?php echo $this->session->userdata('id_users'); ?>">
+							  		</div>
+							  		<div class="form-group" hidden>
+							  			<?php date_default_timezone_set("Asia/Jakarta"); ?>
+							  			<label for="tanggal_komentar">tanggal komentar :</label>
+							  			<input class="form-control" type="text" name="tanggal_komentar" id="tanggal_komentar" value="">
+							  		</div>
 							  		<div class="form-group">
 							  			<label for="komentar">Komentar :</label>
-							  			<textarea class="form-control" id="komentar" name="komentar"></textarea>
+							  			<textarea class="form-control" id="komentar" name="komentar" required></textarea>
 							  		</div>
-							  		<input class="btn btn-success" type="submit" name="submit" value="Kirim Komentar">
+							  		<input class="btn btn-success" type="submit" name="submit" value="Kirim Komentar" id="submit">
+							  		<div class="alert alert-danger mt-3 text-center" id="notifikasi_gagal" role="alert" hidden>
+					                </div>
+					                <div class="alert alert-success mt-3 text-center" id="notifikasi_sukses" role="alert" hidden>
+					                </div>
 							  	</form>
 							</div>
 						</div>
 					<?php } ?>
-					
 
-					<div class="reply">
-						<!-- Reply Card 1 -->
-						<div class="card">
-						  <div class="card-header">	
-						  	<ul class="nav">
-						  		<li class="nav-item">
-						  			<a class="nav-link" tabindex="0" class="btn btn-lg btn-danger" role="button" data-toggle="popover" data-trigger="focus" title="Saputro Andi" data-content="Jombor, Sleman">
-						  				<img src="<?php echo base_url('assets/img/sample.jpg'); ?>" class="img-fluid rounded-circle">
-						  			</a>
-						  		</li>
-						  		<li class="nav-item">
-						  			<p>Kamis, 30 Juli 2018 10:11</p>
-						  		</li>
-						  	</ul>
-						  </div>
-						  <div class="card-body">
-						    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sedUt enim ad minim...</p>
-						  </div>
-						</div>
-
-						<!-- Reply Card 2 -->
-						<div class="card">
-						  <div class="card-header">	
-						  	<ul class="nav">
-						  		<li class="nav-item">
-						  			<a href="" class="nav-link">
-						  				<img src="<?php echo base_url('assets/img/sample.jpg'); ?>" class="img-fluid rounded-circle">
-						  			</a>
-						  		</li>
-						  		<li class="nav-item">
-						  			<p>Andi, 10 menit yang lalu</p>
-						  		</li>
-						  	</ul>
-						  </div>
-						  <div class="card-body">
-						    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sedUt enim ad minim...</p>
-						  </div>
+					<?php foreach($komentar->result() as $row){ ?>
+					<?php  
+						if($row->foto === NULL){
+							$foto = "male.png";
+						}else{
+							$foto = $row->foto;
+						}
+					?>
+					<div id="reply">
+						<div id="field_komentar">
+							<div class="card ml-5">
+							  <div class="card-header">	
+							  	<ul class="nav">
+							  		<li class="nav-item">
+							  			<a class="nav-link" tabindex="0" class="btn btn-lg btn-danger" role="button" data-toggle="popover" data-trigger="focus" title="<?php echo $row->nama_depan; ?>" data-content="Jombor, Sleman">
+							  				<img src="<?php echo base_url('assets/img/foto profil/'.$foto); ?>" class="img-fluid rounded-circle">
+							  			</a>
+							  		</li>
+							  		<li class="nav-item">
+							  			<p><?php echo $row->tanggal_komentar; ?></p>
+							  		</li>
+							  	</ul>
+							  </div>
+							  <div class="card-body">
+							    <p class="card-text"><?php echo $row->komentar; ?></p>
+							  </div>
+							</div>
 						</div>
 					</div>
+					<?php } ?>
 
-					<div class="load-more">
+					<div id="komen">
+						
+					</div>
+
+					<div class="load-more" hidden>
 						<a href="" class="btn btn-load-more">Tampilkan Komentar Lebih Banyak</a>
 					</div>
 
@@ -157,6 +164,63 @@
 			show_auth_menu();
 			show_link_login();
 			show_dropdown_menu();
+			
+
+			$("#tanggal").click(function(){
+				$("#tanggal_komentar").val("<?php echo date('Y-m-d').' '.date('H:i:s'); ?>");
+			});
+
+			$("#submit").on("click", function(e){
+				var field_komentar = $("#komentar").val();
+				var field_form = $("#form-komentar");
+
+				$("#tanggal_komentar").val("<?php echo date('Y-m-d').' '.date('H:i:s'); ?>");
+				
+				if(field_komentar != ""){
+					e.preventDefault();
+					$.ajax({
+						url: "<?php echo site_url('user/kirim_komentar'); ?>",
+						type: "POST",
+						dataType: "JSON",
+						data: field_form.serialize(),
+						success: function(data){
+							if(data.tipe_notifikasi == "sukses"){
+								$("#notifikasi_sukses").attr("hidden", false);
+								$("#notifikasi_sukses").html(data.notifikasi);
+								$("#komentar").val("");
+							}else{
+								$("#notifikasi_gagal").attr("hidden", false);
+								$("#notifikasi_gagal").html(data.notifikasi);
+								$("#komentar").val("");
+							}
+
+							setTimeout(function(){
+								$("#notifikasi_sukses").attr("hidden", true);
+								$("#notifikasi_gagal").attr("hidden", true);
+							}, 3000);
+						}
+					});
+				}
+			});
+
+			function load_komentar(dummy = "yes"){
+				$.ajax({
+					url: "<?php echo site_url('user/get_komentar'); ?>",
+					method: "post",
+					dataType: "json",
+					data: {dummy:dummy},
+					success: function(data){
+						if(data.tipe_notifikasi == "ada"){
+							$(".load-more").attr("hidden", false);
+							$("#komen").html(data.komentar);
+						}else{
+							$("#komen").html(data.komentar);
+						}
+					}
+				});
+			}
+
+			load_komentar();
 
 			function show_balas_komentar(){
 				$.get("<?php echo site_url('user/show_balas_komentar'); ?>", function(data){

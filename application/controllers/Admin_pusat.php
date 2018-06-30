@@ -40,12 +40,6 @@ class Admin_pusat extends CI_Controller {
 		$this->load->view('Admin Pusat/template/footer');
 	}
 
-	public function video_sosialisasi(){
-		$this->load->view('Admin Pusat/template/header');
-		$this->load->view('Admin Pusat/pages/video_sosialisasi');
-		$this->load->view('Admin Pusat/template/footer');
-	}
-
 	public function do_upload(){
 
 		if(isset($_POST["submit"])){
@@ -71,7 +65,7 @@ class Admin_pusat extends CI_Controller {
 			);
 
 			//upload nama file ke database
-			$upload = $this->admin_model->upload($data);
+			$upload = $this->admin_model->upload_file_artikel($data);
 			if($upload === 0){
 				echo "<script>
 					alert('Data gagal diupload');
@@ -81,7 +75,7 @@ class Admin_pusat extends CI_Controller {
 				
 			}else{
 				$this->session->set_flashdata("sukses", "sukses");
-				redirect("admin-pusat/artikel");
+				redirect("admin-pusat/tulis_artikel");
 			}
 		}
 
@@ -135,5 +129,7 @@ class Admin_pusat extends CI_Controller {
 		return $namaFileBaru;
 
 	}
+
+	
 	
 }

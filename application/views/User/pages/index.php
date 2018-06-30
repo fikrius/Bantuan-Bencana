@@ -94,8 +94,6 @@
 							 			<li data-target="#carouselExampleIndicators" data-slide-to="<?php echo $i; ?>" class="<?php echo $status; ?>"></li>
 							 			<?php $status = ""; ?>
 							 		<?php } ?>
-						
-							    	
 							  	</ol>
 
 							  	<div class="carousel-inner">
@@ -108,7 +106,7 @@
 											$string = substr($string, 0, 100);
 							  			?>
 							  			<div class="carousel-item <?php echo $status; ?>">
-								      		<img class="d-block w-100" src="<?php echo base_url('assets/img/merapi.jpg'); ?>" alt="First slide">
+								      		<img class="d-block w-100" src="<?php echo base_url('assets/img/postingan/').$row->nama_foto; ?>" alt="First slide">
 								      		<div class="carousel-caption d-none d-md-block">
 												<a href="#" style="color: inherit;"><h5><?php echo $row->judul; ?></h5></a>
 											    <p style="text-align: justify;"><?php echo $string." . . ."; ?></p>

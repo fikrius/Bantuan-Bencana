@@ -13,7 +13,7 @@ class Admin_model extends CI_Model{
 	}
 
 	//upload file
-	public function upload($data){
+	public function upload_file_artikel($data){
 		$query = $this->db->insert("artikel", $data);
 		return $query;
 	}

@@ -25,7 +25,6 @@ $route['admin-pusat/home'] = 'Admin_pusat';
 $route['admin-pusat/permintaan-bantuan'] = 'Admin_pusat/permintaan_bantuan';
 $route['admin-pusat/artikel'] = 'Admin_pusat/artikel';
 $route['admin-pusat/tulis_artikel'] = 'Admin_pusat/tulis_artikel';
-$route['admin-pusat/video-sosialisasi'] = 'Admin_pusat/video_sosialisasi';
 
 //bantuan
 $route['bantuan/(:any)'] = 'bantuan/$1';

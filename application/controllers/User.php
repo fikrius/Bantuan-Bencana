@@ -10,6 +10,10 @@ class User extends CI_Controller {
 		$this->load->model('user_model');
 		//variabel untuk menampung kode html
 		$output = "";
+
+		if(isset($_SESSION["logged_in_admin_pusat"])){
+			redirect('admin-pusat/home','refresh');
+		}
 	}
 
 	public function index(){
@@ -23,10 +27,12 @@ class User extends CI_Controller {
 
 	public function post(){
 		$id_artikel = $this->uri->segment(2);
+
 		$where = array(
 			'id_artikel' => $id_artikel
 		);
 		$data['postingan'] = $this->user_model->show_post($where);
+		$data['komentar'] = $this->user_model->get_komentar($id_artikel);
 
 		$this->load->view('User/template/header');
 		$this->load->view('User/pages/post', $data);
@@ -113,6 +119,90 @@ class User extends CI_Controller {
 		  		</button>
 			';
 		}
+	}
+
+	public function kirim_komentar(){
+		$output = "";
+		$tipe_notifikasi = "";
+
+		$id_artikel = $this->input->post("id_artikel");
+		$id_users = $this->input->post("id_users");
+		$tanggal_komentar = $this->input->post("tanggal_komentar");
+		$komentar = htmlspecialchars($this->input->post("komentar"));
+
+		//insert ke db komentar
+		$data_komentar = array(
+			'komentar' => $komentar,
+			'tanggal_komentar' => $tanggal_komentar,
+			'id_users' => $id_users,
+			'id_artikel' => $id_artikel
+		);
+
+		$result = $this->user_model->kirim_komentar($data_komentar);
+		if($result){
+			$output .= "Komentar berhasil dikirim";
+			$tipe_notifikasi .= "sukses";
+		}else{
+			$output .= "Komentar gagal dikirim";
+			$tipe_notifikasi .= "gagal";
+		}
+
+		$data_output = array(
+			'notifikasi' => $output,
+			'tipe_notifikasi' => $tipe_notifikasi
+		);
+		echo json_encode($data_output);
+	}
+
+	public function get_komentar(){
+		$output = "";
+		$tipe_notifikasi = "";
+		$id_artikel = $this->uri->segment(2);
+		
+		if(isset($_POST["dummy"])){
+			$hasil = $this->user_model->get_komentar($id_artikel);
+			// $count = $this->user_model->get_komentar($id_artikel)->num_rows();
+			if($hasil){
+				foreach($hasil->result() as $row){
+					if($row->foto === NULL){
+						$foto = "male.png";
+					}else{
+						$foto = $row->foto;
+					}
+					$tipe_notifikasi = "ada";
+					$output .= '
+						<div class="card">
+						  <div class="card-header">	
+						  	<ul class="nav">
+						  		<li class="nav-item">
+						  			<a class="nav-link" tabindex="0" class="btn btn-lg btn-danger" role="button" data-toggle="popover" data-trigger="focus" title='.$row->nama_depan.' data-content="Jombor, Sleman">
+						  				<img src='.base_url("assets/img/postingan/".$row->$foto).' class="img-fluid rounded-circle">
+						  			</a>
+						  		</li>
+						  		<li class="nav-item">
+						  			<p>'.$row->tanggal_komentar.'</p>
+						  		</li>
+						  	</ul>
+						  </div>
+						  <div class="card-body">
+						    <p class="card-text">'.$row->komentar.'</p>
+						  </div>
+						</div>
+					';
+				}
+			}else{
+				$tipe_notifikasi = "tidak ada";
+				$output .= '
+					<h5 class="text-center mt-4">Tidak Ada Komentar hehe</h5>
+				';
+			}
+			$data_output = array(
+				'komentar' => $output,
+				'tipe_notifikasi' => $tipe_notifikasi
+			);
+			echo json_encode($data_output);
+		}
+		
 	}
 
 }

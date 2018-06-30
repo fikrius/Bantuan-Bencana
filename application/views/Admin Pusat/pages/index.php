@@ -6,7 +6,7 @@
 
 	<nav class="navbar navbar-expand-sm fixed-top">
 		<div class="container">
-			<a href="<?php echo site_url('home'); ?>" class="navbar-brand">
+			<a href="<?php echo site_url('admin-pusat/home'); ?>" class="navbar-brand">
 				<img src="<?php echo base_url('assets/img/logo bnpb.png'); ?>">
 				Bantuan <span class="highlight">Bencana</span>
 			</a>

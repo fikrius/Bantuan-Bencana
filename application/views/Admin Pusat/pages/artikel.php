@@ -6,7 +6,7 @@
 
 	<nav class="navbar navbar-expand-sm fixed-top">
 		<div class="container">
-			<a href="<?php echo site_url('home'); ?>" class="navbar-brand">
+			<a href="<?php echo site_url('admin-pusat/home'); ?>" class="navbar-brand">
 				<img src="<?php echo base_url('assets/img/logo bnpb.png'); ?>">
 				Bantuan <span class="highlight">Bencana</span>
 			</a>
@@ -69,7 +69,7 @@
 					  	<a class="dropdown-item" href=""><i class="fa fa-user" style="margin-right: 5px;"></i> Profil</a>
 					  	<a class="dropdown-item" href=""><i class="fa fa-home" style="margin-right: 5px;"></i> Beranda</a>
 					  	<a class="dropdown-item" href=""><i class="fa fa-cog" style="margin-right: 5px;"></i> Pengaturan</a>
-					  	<a class="dropdown-item" href="">Keluar</a>
+					  	<a class="dropdown-item" href="<?php echo site_url('logout'); ?>">Keluar</a>
 					</div>
 				</ul>
 				<!-- End Profile Dropdown -->
