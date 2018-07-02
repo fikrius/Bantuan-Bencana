@@ -19,7 +19,14 @@ class Admin_model extends CI_Model{
 	}
 
 	public function get_list_artikel(){
-		return $this->db->get("artikel");
+		return $this->db->query("SELECT * FROM artikel ORDER BY tanggal_posting DESC");
 	}
+
+	public function hapus_artikel($where){
+		return $this->db->delete("artikel", $where);
+	}
+
+
+	
 
 }

@@ -9,7 +9,7 @@
 		<div class="container">
 			<a href="<?php echo site_url('home'); ?>" class="navbar-brand">
 				<img src="<?php echo base_url('assets/img/logo bnpb.png'); ?>">
-				Bantuan <span class="highlight">Bencana</span>
+				MEDICAL<span class="highlight">L</span>
 			</a>
 			<button class="navbar-toggler" data-toggle="collapse" data-target="#menu">
 				<span class="navbar-toggler-icon"></span>
@@ -59,7 +59,7 @@
 					<div class="input-group mb-3 search-thread">
 					  	<form method="" action="" id="form-cari-berita" style="width: 100%;">
 					  		<div class="form-group">
-					  			<input class="form-control text-center" type="search" name="cari-berita" id="cari-berita" placeholder="Cari Berita">
+					  			<input class="form-control text-center" type="search" name="cari-berita" id="cari-berita" placeholder="Cari Artikel">
 					  		</div>
 					  	</form>
 					</div>
@@ -72,11 +72,12 @@
 
 					<!-- Video Sosialisasi -->
 					<div class="list-group category">
-			    	  <h4>Video Sosialisasi</h4>
-					  <a href="#" class="list-group-item list-group-item-action">Definisi Bencana</a>
-					  <a href="#" class="list-group-item list-group-item-action">Potensi Ancaman Bencana</a>
-					  <a href="#" class="list-group-item list-group-item-action">Sistem Penanggulangan Bencana</a>
-					  <a href="#" class="list-group-item list-group-item-action disabled">Siaga Bencana</a>
+			    	  <h4>Kategori Artikel</h4>
+					  <a href="<?php echo site_url('kategori/gempa_bumi'); ?>" class="list-group-item list-group-item-action">Gempa Bumi</a>
+					  <a href="<?php echo site_url('kategori/tanah_longsor'); ?>" class="list-group-item list-group-item-action">Tanah Longsor</a>
+					  <a href="<?php echo site_url('kategori/banjir'); ?>" class="list-group-item list-group-item-action">Banjir</a>
+					  <a href="<?php echo site_url('kategori/tsunami'); ?>" class="list-group-item list-group-item-action">Tsunami</a>
+					  <a href="<?php echo site_url('kategori/umum'); ?>" class="list-group-item list-group-item-action">Umum</a>
 					</div>
 				</div>
 
@@ -133,6 +134,9 @@
 					<!-- Card 1 -->
 					<?php foreach($artikel->result() as $row){ ?>
 						<?php 
+							$data = date_create($row->tanggal_posting);
+							$new_date = date_format($data, "D, d F Y");
+							$time = date_format($data, "H:i:sa");
 							$string = $row->isi;
 							$string = substr($string, 0, 100);
 							
@@ -149,7 +153,7 @@
 						  			</a>
 						  		</li>
 						  		<li class="nav-item">
-						  			<p><?php echo $row->tanggal_posting; ?></p>
+						  			<p><?php echo $new_date." | ".$time; ?></p>
 						  		</li>
 						  	</ul>
 						  </div>

@@ -55,11 +55,13 @@ class Admin_pusat extends CI_Controller {
 
 			$judul = htmlspecialchars($this->input->post("judul"));
 			$isi = htmlspecialchars($this->input->post("isi"));
+			$kategori = $this->input->post("kategori");
 			$tanggal_posting = $this->input->post("tanggal_posting");
 
 			$data = array(
 					"judul" => $judul,
 					"isi" => nl2br($isi),
+					"kategori" => $kategori,
 					"tanggal_posting" => $tanggal_posting,
 					"nama_foto" => $nama_foto
 			);
@@ -128,6 +130,29 @@ class Admin_pusat extends CI_Controller {
 
 		return $namaFileBaru;
 
+	}
+
+	public function hapus_artikel(){
+		$id_artikel = $this->uri->segment(2);
+		print_r($id_artikel);
+		$where = array(
+			'id_artikel' => $id_artikel
+		);
+		$result = $this->admin_model->hapus_artikel($where);
+		if($result){
+			echo "
+				<script>
+					alert('Artikel berhasil dihapus');
+				</script>
+			";
+		}else{
+			echo "
+				<script>
+					Artikel gagal dihapus!
+				</script>
+			";
+		}
+		redirect('admin-pusat/artikel','refresh');
 	}
 
 	

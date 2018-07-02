@@ -43,4 +43,8 @@ class Auth_model extends CI_Model{
 		return $this->db->get_where($table, $where);
 	}
 
+	public function set_aktivitas_terakhir($aktivitas_terakhir, $id_users){
+		return $this->db->query("UPDATE users SET aktivitas_terakhir = '$aktivitas_terakhir' WHERE id_users = $id_users");
+	}
+
 }

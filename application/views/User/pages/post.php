@@ -9,7 +9,7 @@
 		<div class="container">
 			<a href="<?php echo site_url('home'); ?>" class="navbar-brand">
 				<img src="<?php echo base_url('assets/img/logo bnpb.png'); ?>">
-				Bantuan <span class="highlight">Bencana</span>
+				MEDICAL<span class="highlight">L</span>
 			</a>
 			<button class="navbar-toggler" data-toggle="collapse" data-target="#menu">
 				<span class="navbar-toggler-icon"></span>
@@ -57,6 +57,11 @@
 			<div class="row">
 				<div class="col-md-9">
 					<?php foreach($postingan->result() as $row){ ?>
+						<?php  
+							$data = date_create($row->tanggal_posting);
+							$new_date = date_format($data, "D, d F Y");
+							$time = date_format($data, "H:i:sa");
+						?>
 						<!-- Card 1 -->
 						<div class="card">
 						  	<div class="card-header">	
@@ -67,7 +72,7 @@
 						  				</a>
 						  			</li>
 						  			<li class="nav-item">
-						  				<p><?php echo $row->tanggal_posting; ?></p>
+						  				<p><?php echo $new_date." | ".$time; ?></p>
 						  			</li>
 						  		</ul>
 						  	</div>
@@ -112,6 +117,9 @@
 
 					<?php foreach($komentar->result() as $row){ ?>
 					<?php  
+						$data = date_create($row->tanggal_komentar);
+						$new_date = date_format($data, "D, d F Y");
+						$time = date_format($data, "H:i:sa");
 						if($row->foto === NULL){
 							$foto = "male.png";
 						}else{
@@ -124,12 +132,12 @@
 							  <div class="card-header">	
 							  	<ul class="nav">
 							  		<li class="nav-item">
-							  			<a class="nav-link" tabindex="0" class="btn btn-lg btn-danger" role="button" data-toggle="popover" data-trigger="focus" title="<?php echo $row->nama_depan; ?>" data-content="Jombor, Sleman">
-							  				<img src="<?php echo base_url('assets/img/foto profil/'.$foto); ?>" class="img-fluid rounded-circle">
+							  			<a class="nav-link" tabindex="0" class="btn btn-lg btn-danger" role="button" data-toggle="popover" data-trigger="focus" title="<?php echo $row->nama_depan; ?>" data-content="<?php echo $row->alamat; ?>">
+							  				<img src="<?php echo base_url('assets/img/foto_profil/'.$foto); ?>" class="img-fluid rounded-circle">
 							  			</a>
 							  		</li>
 							  		<li class="nav-item">
-							  			<p><?php echo $row->tanggal_komentar; ?></p>
+							  			<p><?php echo $new_date." | ".$time; ?></p>
 							  		</li>
 							  	</ul>
 							  </div>
@@ -197,7 +205,8 @@
 							setTimeout(function(){
 								$("#notifikasi_sukses").attr("hidden", true);
 								$("#notifikasi_gagal").attr("hidden", true);
-							}, 3000);
+								location.reload();
+							}, 2000);
 						}
 					});
 				}

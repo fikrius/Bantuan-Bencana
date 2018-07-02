@@ -8,7 +8,7 @@
 		<div class="container">
 			<a href="<?php echo site_url('admin-pusat/home'); ?>" class="navbar-brand">
 				<img src="<?php echo base_url('assets/img/logo bnpb.png'); ?>">
-				Bantuan <span class="highlight">Bencana</span>
+				MEDICAL<span class="highlight">L</span>
 			</a>
 			<button class="navbar-toggler" data-toggle="collapse" data-target="#menu">
 				<span class="navbar-toggler-icon"></span>
@@ -38,7 +38,7 @@
 
 				<!-- menu utama -->
 				<div id="auth_menu">
-					<ul class="navbar-nav ml-auto">
+					<ul class="navbar-nav ml-auto mr-4">
 						<li class="nav-item">
 							<a href="<?php echo site_url('admin-pusat/home'); ?>" class="nav-link">Dasbor</a>
 						</li>
@@ -49,7 +49,7 @@
 							<a href="<?php echo site_url('admin-pusat/artikel'); ?>" class="nav-link">Artikel</a>
 						</li>
 						<li class="nav-item">
-							<a href="<?php echo site_url('admin-pusat/video-sosialisasi'); ?>" class="nav-link">Video Sosialisasi</a>
+							<a href="<?php echo site_url('admin-pusat/admin-daerah'); ?>" class="nav-link">Admin Daerah</a>
 						</li>
 					</ul>
 				</div>

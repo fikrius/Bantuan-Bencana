@@ -8,6 +8,7 @@ class Auth extends CI_Controller {
 		$this->load->model('auth_model');
 		$this->load->helper('url');
 		$this->load->library('session');
+		date_default_timezone_set("Asia/Jakarta");
 	}
 
 	public function login(){
@@ -63,7 +64,7 @@ class Auth extends CI_Controller {
 						'password' => $results['password'],
 						'tanggal_lahir' => $results['tanggal_lahir'],
 						'aktivitas_terakhir' => $results['aktivitas_terakhir'],
-						'foto' => $results['foto'],
+						'alamat' => $results['alamat'],
 						'logged_in_admin_pusat' => TRUE
 					);
 
@@ -74,6 +75,11 @@ class Auth extends CI_Controller {
 				}else if($level === "2"){
 					//cek password
 					if(password_verify($password, $db_password)){
+						if($results['foto'] === null){
+							$foto = "male.png";
+						}else{
+							$foto = $results['foto'];
+						}
 						$data_session = array(
 							'id_users' => $results['id_users'],
 							'level' => $results['level'],
@@ -84,10 +90,11 @@ class Auth extends CI_Controller {
 							'password' => $results['password'],
 							'tanggal_lahir' => $results['tanggal_lahir'],
 							'aktivitas_terakhir' => $results['aktivitas_terakhir'],
-							'foto' => $results['foto'],
+							'alamat' => $results['alamat'],
+							'foto' => $foto,
 							'logged_in' => TRUE
 						);
-
+						
 						$this->session->set_userdata($data_session);
 						
 						redirect(site_url('home'),'refresh');
@@ -283,6 +290,13 @@ class Auth extends CI_Controller {
 
 	//logout
 	public function logout(){
+		$aktivitas_terakhir = date('Y-m-d').' '.date('H:i:s');
+		$id_users = $_SESSION['id_users'];
+		$result = $this->auth_model->set_aktivitas_terakhir($aktivitas_terakhir, $id_users);
+		if(!$result){
+			echo "Eror";
+			die;
+		}
 		$this->session->sess_destroy();
 		redirect('home','refresh');
 	}

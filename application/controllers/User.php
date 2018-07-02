@@ -40,8 +40,16 @@ class User extends CI_Controller {
 	}
 
 	public function bantuan(){
+		$data["pertanyaan"] = $this->user_model->get_pertanyaan();
+
 		$this->load->view('User/template/header');
-		$this->load->view('User/pages/bantuan');
+		$this->load->view('User/pages/bantuan', $data);
+		$this->load->view('User/template/footer');
+	}
+
+	public function pengaturan(){
+		$this->load->view('User/template/header');
+		$this->load->view('User/pages/pengaturan');
 		$this->load->view('User/template/footer');
 	}
 
@@ -71,7 +79,7 @@ class User extends CI_Controller {
 		//cek session sudah ada apa belum
 		if(isset($_SESSION['logged_in'])){
 			echo '
-				<a class="btn btn-success" name="btn-bantuan" id="btn-bantuan" href='.site_url('bantuan').'>Minta Bantuan</a>
+				<a class="btn btn-success" name="btn-bantuan" id="btn-bantuan" href='.site_url('bantuan').'>Daftar Relawan Medis</a>
 			';
 		}
 	}
@@ -82,7 +90,7 @@ class User extends CI_Controller {
 		if(isset($_SESSION['logged_in'])){
 			echo '
 			<a class="navbar-right dropdown-toggle" role="button" href="" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="text-decoration: none; color: #000;" onmouseover='."this.style.color='#fff'".' onmouseleave='."this.style.color='#000'".'>
-				  	<img class="rounded-circle" style="width: 30px;" src='.base_url('assets/img/sample.jpg').'>
+				  	<img class="rounded-circle" style="width: 30px;" src='.base_url('assets/img/foto_profil/'.$_SESSION["foto"]).'>
 				  </a>
 
 			<div class="dropdown-menu" aria-labelledby="dropdownMenu">
@@ -90,7 +98,7 @@ class User extends CI_Controller {
 			  	<hr>
 			  	<a class="dropdown-item" href='.site_url("author/fikrius").'><i class="fa fa-user" style="margin-right: 5px;"></i> Profil</a>
 			  	<a class="dropdown-item" href='.site_url("home").'><i class="fa fa-home" style="margin-right: 5px;"></i> Beranda</a>
-			  	<a class="dropdown-item" href='.site_url("setting").'><i class="fa fa-cog" style="margin-right: 5px;"></i> Pengaturan</a>
+			  	<a class="dropdown-item" href='.site_url("pengaturan").'><i class="fa fa-cog" style="margin-right: 5px;"></i> Pengaturan</a>
 			  	<a class="dropdown-item" href='.site_url("logout").'>Keluar</a>
 			</div>
 			';
@@ -203,6 +211,130 @@ class User extends CI_Controller {
 			echo json_encode($data_output);
 		}
 		
+	}
+
+	public function kategori(){
+		$enum = $this->uri->segment(2);
+		$data['kategori'] = $this->user_model->get_kategori($enum);
+		if($data['kategori']->num_rows() === 0){
+			$data['notifikasi'] = '
+				tidak ada
+			';
+		}
+
+		$this->load->view('User/template/header');
+		$this->load->view('User/pages/kategori', $data);
+		$this->load->view('User/template/footer');
+	}
+
+	public function update_pengaturan(){
+
+		if(isset($_POST["submit"])){
+
+			$nama_foto = $this->pindah_gambar();
+			if(!$nama_foto){
+				echo "<script>
+					alert('Gambar gagal diupload');
+				</script>";
+				redirect('pengaturan','refresh');
+				return false;
+			}
+
+			$id_users = $this->input->post("id_users");
+			$email = htmlspecialchars($this->input->post("email"));
+			$username = htmlspecialchars($this->input->post("username"));
+			$nama_depan = htmlspecialchars($this->input->post("nama_depan"));
+			$nama_belakang = htmlspecialchars($this->input->post("nama_belakang"));
+			$password = htmlspecialchars($this->input->post("password"));
+			$tanggal_lahir = htmlspecialchars($this->input->post("tanggal_lahir"));
+			$alamat = htmlspecialchars($this->input->post("alamat"));
+
+			$password_hash = password_hash($password, PASSWORD_DEFAULT);
+
+			$data = array(
+					"email" => $email,
+					"username" => $username,
+					"nama_depan" => $nama_depan,
+					"nama_belakang" => $nama_belakang,
+					"password" => $password_hash,
+					"tanggal_lahir" => $tanggal_lahir,
+					"alamat" => $alamat,
+					"foto" => $nama_foto
+			);
+
+			//upload nama file ke database
+			$upload = $this->user_model->update_pengaturan($data, $id_users);
+			if($upload === 0){
+				echo "<script>
+					alert('Data gagal diupload');
+					document.location.href = 'pengaturan';
+				</script>";
+				return false;
+				
+			}else{
+				$this->session->set_flashdata("sukses", "sukses");
+				redirect("pengaturan");
+			}
+		}
+
+	}
+
+	// memindahkan file ke direktori server
+	public function pindah_gambar(){
+		
+		$namaFile =  $_FILES["foto"]["name"];
+		$tmp_name = $_FILES["foto"]["tmp_name"];
+		$size = $_FILES["foto"]["size"];
+		$error = $_FILES["foto"]["error"];
+
+		// cek user upload file atau tidak
+		if($error === 4){
+			echo "<script>
+				alert('You must upload file');
+			</script>";
+			return FALSE;
+		}
+
+		//cek yang diupload gambar atau bukan
+		$ekstensiValid = ["jpg", "jpeg", "png"];
+		$ekstensiGambar = explode(".", $namaFile);
+		$ekstensiGambar = strtolower(end($ekstensiGambar));
+
+		if(!in_array($ekstensiGambar, $ekstensiValid)){
+			echo "<script>
+				alert('Invalid image extension');
+			</script>";
+			return false;
+		}
+
+		//cek ukuran melebihi ukuran maks atau tidak
+		$maxSize = 1000000;
+		if($size > $maxSize){
+			echo "<script>
+				alert('Your image is too big');
+			</script>";
+			return false;
+		}
+
+		//memberi nama unik ke nama file
+		$namaFileBaru = $namaFile.uniqid();
+		$namaFileBaru .= ".";
+		$namaFileBaru .= $ekstensiGambar;
+
+		//pindahkan image ke direktori
+		move_uploaded_file($tmp_name, "assets/img/foto_profil/".$namaFileBaru);
+
+		return $namaFileBaru;
+
+	}
+
+	public function jawaban_user(){
+		$i =1;
+		while($_POST){
+			echo $_POST["jawaban".$i];
+		};
+		
+
 	}
 
 }

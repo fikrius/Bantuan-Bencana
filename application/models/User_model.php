@@ -12,7 +12,7 @@ class User_model extends CI_Model{
 	}
 
 	public function get_jumlah_artikel(){
-		$query = $this->db->get("artikel");
+		$query = $this->db->query("SELECT * FROM artikel LIMIT 5");
 		return $query->num_rows();
 	} 
 
@@ -30,8 +30,24 @@ class User_model extends CI_Model{
 
 	public function get_komentar($id_artikel){
 		$query = $this->db->query("
-			SELECT k.id_komentar, a.id_artikel, u.id_users, k.komentar, k.tanggal_komentar, u.foto, u.nama_depan, u.nama_belakang FROM komentar k JOIN users u ON k.id_users = u.id_users JOIN artikel a ON k.id_artikel = a.id_artikel WHERE a.id_artikel = '$id_artikel' ORDER BY k.tanggal_komentar DESC 
+			SELECT k.id_komentar, a.id_artikel, u.id_users, k.komentar, k.tanggal_komentar, u.foto, u.nama_depan, u.nama_belakang, u.alamat FROM komentar k JOIN users u ON k.id_users = u.id_users JOIN artikel a ON k.id_artikel = a.id_artikel WHERE a.id_artikel = '$id_artikel' ORDER BY k.tanggal_komentar DESC 
 		");
 		return $query;
 	}
+
+	//menampilkan berita berdasarkan kategori
+	public function get_kategori($data){
+		return $this->db->query("SELECT * FROM artikel WHERE kategori = '$data' ");
+	}
+
+	public function update_pengaturan($data, $id_users){
+		$this->db->where("id_users", $id_users);
+		$this->db->update("users", $data);
+		return $this->db->affected_rows();
+	}
+
+	public function get_pertanyaan(){
+		return $this->db->get("pertanyaan");
+	}
+
 }

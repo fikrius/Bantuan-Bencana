@@ -1,4 +1,4 @@
-	<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/style/User/bantuan.css');?>">
+	<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/style/User/kategori.css');?>">
 	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 	<title>Bantuan Bencana</title>
 
@@ -57,15 +57,14 @@
 			<div class="row">
 				<div class="col-md-3">
 					<div class="input-group mb-3 search-thread">
-					  <form method="" action="" id="form-cari-berita" style="width: 100%;">
-					  	<div class="form-group">
-					  		<input class="form-control text-center" type="text" name="cari-berita" id="cari-berita" placeholder="Cari Artikel">
-					  		<input type="hidden" name="btn-cari-berita" id="btn-cari-berita">
-					  	</div>
-					  </form>
+					  	<form method="" action="" id="form-cari-berita" style="width: 100%;">
+					  		<div class="form-group">
+					  			<input class="form-control text-center" type="search" name="cari-berita" id="cari-berita" placeholder="Cari Artikel">
+					  		</div>
+					  	</form>
 					</div>
-					<div class="input-group mb-3 sm-12">
-						<a class="btn btn-success" name="btn-bantuan" id="btn-bantuan" href="<?php echo site_url('bantuan'); ?>">Minta Bantuan</a>
+					<div class="input-group mb-3 sm-12 tombol-bantuan">
+						
 					</div>
 					<div class="sidebar-line">
 						<hr>
@@ -83,23 +82,42 @@
 				</div>
 
 				<div class="col-md-6 main-content">
-					<h2 class="mb-3">Pertanyaan Seleksi Relawan Medis</h2>
-					<form method="post" action="<?php echo site_url('user/jawaban_user'); ?>" id="form-bantuan">
-						<?php  
-							$i = 1;
-							$ya = 1;
-							$tidak = 0;
+					<!-- Notif -->
+					<?php if(isset($notifikasi)){ ?>
+						<div class="alert alert-danger mt-3" role="alert">Artikel tidak ditemukan</div>
+					<?php } ?>
+					<!-- Card 1 -->
+					<?php foreach($kategori->result() as $row){ ?>
+						<?php 
+							$data = date_create($row->tanggal_posting);
+							$new_date = date_format($data, "D, d F Y");
+							$time = date_format($data, "H:i:sa");
+							$string = $row->isi;
+							$string = substr($string, 0, 100);
+							
 						?>
-						<?php foreach($pertanyaan->result() as $row){ ?>
-						   	<label for="pertanyaan"><?php echo $row->pertanyaan; ?></label>
-							<div id="pertanyaan_<?php $i; ?>" class="mb-5">
-								<input name="jawaban_<?php echo $i; ?>" type="radio" id="<?php echo $i; ?>" value="<?php echo $ya; ?>" required>Ya
-								<input name="jawaban_<?php echo $i; ?>" type="radio" id="<?php echo $i; ?>" value="<?php echo $tidak; ?>" required>Tidak
-							</div>
-							<?php $i++; ?>
-						<?php } ?>
-						<input type="submit" name="submit" id="submit" value="Kirim Jawaban" class="btn btn-success">
-					</form>
+						<div class="card">
+						  <div class="card-header">	
+						  	<ul class="nav">
+						  		<li class="nav-item">
+						  			<a class="nav-link" tabindex="0" class="btn btn-lg btn-danger" role="button" data-toggle="popover" data-trigger="focus" title="BPBD DIY" data-content="Jalan Kenari No. 14A, Semaki, Umbulharjo YOGYAKARTA, 55166
+									Telp. (0274)555836
+									Fax. (0274)554206
+									email: BPBD@jogjaprov.go.id">
+						  				<img src="<?php echo base_url('assets/img/logo bnpb.png'); ?>" class="img-fluid rounded-circle">
+						  			</a>
+						  		</li>
+						  		<li class="nav-item">
+						  			<p><?php echo $new_date." | ".$time; ?></p>
+						  		</li>
+						  	</ul>
+						  </div>
+						  <div class="card-body">
+						    <a href="<?php echo site_url('berita/'.$row->id_artikel); ?>"><h5 class="card-title"><?php echo $row->judul; ?></h5></a>
+						    <p class="card-text"><?php echo $string."..."; ?></p>
+						  </div>
+						</div>
+					<?php } ?>
 				</div>
 
 				<div class="col-md-3 iklan" style="margin-top: 1rem;">
@@ -114,7 +132,6 @@
 							<img style="width: 100%;" src="<?php echo base_url('assets/img/iklan/minion.gif'); ?>">
 						</a>
 					</div>
-					<hr>
 				</div>
 
 			</div>
@@ -147,20 +164,10 @@
 				});
 			}
 
-			//pertanyaan
-			$('#penyakit').click(function(e){
-				e.preventDefault();
-				$.get("<?php echo site_url('bantuan/show_sakit_kepala'); ?>", function(data){
-					$(".muncul").html(data);
-				});
+			//popover everywhere
+			$(function(){
+			  $('[data-toggle="popover"]').popover()
 			});
-			
-			function show_sakit_kepala(){
-				$.get("<?php echo site_url('bantuan/show_sakit_kepala'); ?>", function(data){
-					$(".pertanyaan").html(data);
-				});
-			}
-
 		});
 
 	</script>

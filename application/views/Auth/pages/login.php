@@ -8,7 +8,7 @@
 		<div class="container">
 			<a href="<?php echo site_url('home'); ?>" class="navbar-brand">
 				<img src="<?php echo base_url('assets/img/logo bnpb.png'); ?>">
-				Bantuan <span class="highlight">Bencana</span>
+				MEDICAL<span class="highlight">L</span>
 			</a>
 			<button class="navbar-toggler" data-toggle="collapse" data-target="#menu">
 				<span class="navbar-toggler-icon"></span>
